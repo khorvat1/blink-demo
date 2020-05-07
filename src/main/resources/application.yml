@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/blink_demo
+    username: blink_user
+    password: user1234
+  liquibase:
+    default-schema: public
+    user: blink_admin
+    password: admin1234
