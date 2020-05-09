@@ -3,6 +3,7 @@ package hr.khorvat.blink.model.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import hr.khorvat.blink.model.User;
+import hr.khorvat.blink.model.enums.SexType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +36,6 @@ public class BasicUserDTO implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
     @NotNull
-    private String sex;
+    private SexType sex;
 
 }

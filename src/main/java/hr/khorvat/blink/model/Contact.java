@@ -1,5 +1,6 @@
 package hr.khorvat.blink.model;
 
+import hr.khorvat.blink.model.enums.ContactType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +24,8 @@ public class Contact {
 
     @NotNull
     @Column
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ContactType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -1,5 +1,6 @@
 package hr.khorvat.blink.model;
 
+import hr.khorvat.blink.model.enums.SexType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,8 +35,7 @@ public class User {
     private Date dateOfBirth;
 
     @NotNull
-    @Column
-    private String sex;
+    private SexType sex;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Address> addresses = new HashSet<>();

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import hr.khorvat.blink.model.Address;
 import hr.khorvat.blink.model.Contact;
 import hr.khorvat.blink.model.User;
+import hr.khorvat.blink.model.enums.AddressType;
+import hr.khorvat.blink.model.enums.ContactType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +34,7 @@ public class UserDTO extends BasicUserDTO {
     public static class ContactDTO {
         private Long id;
         private String value;
-        private String type;
+        private ContactType type;
 
         public ContactDTO(Contact contact) {
             super();
@@ -50,7 +52,7 @@ public class UserDTO extends BasicUserDTO {
         private String street;
         private String city;
         private String state;
-        private String type;
+        private AddressType type;
 
         public AddressDTO(Address address) {
             super();

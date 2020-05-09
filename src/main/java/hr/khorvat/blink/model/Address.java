@@ -1,5 +1,6 @@
 package hr.khorvat.blink.model;
 
+import hr.khorvat.blink.model.enums.AddressType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,8 @@ public class Address {
 
     @NotNull
     @Column
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private AddressType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
