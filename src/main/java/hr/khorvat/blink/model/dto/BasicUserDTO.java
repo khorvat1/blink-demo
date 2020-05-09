@@ -1,12 +1,15 @@
 package hr.khorvat.blink.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import hr.khorvat.blink.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,14 +22,19 @@ public class BasicUserDTO implements Serializable {
         this.id = user.getId();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.dateOfBirth = user.getDateOfBirth().toString();
+        this.dateOfBirth = user.getDateOfBirth();
         this.sex = user.getSex();
     }
 
     private Long id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
-    private String dateOfBirth;
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
+    @NotNull
     private String sex;
 
 }

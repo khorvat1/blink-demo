@@ -29,7 +29,7 @@ public class UserDTO extends BasicUserDTO {
     @Getter
     @Setter
     @NoArgsConstructor
-    public class ContactDTO {
+    public static class ContactDTO {
         private Long id;
         private String value;
         private String type;
@@ -45,7 +45,7 @@ public class UserDTO extends BasicUserDTO {
     @Getter
     @Setter
     @NoArgsConstructor
-    public class AddressDTO {
+    public static class AddressDTO {
         private Long id;
         private String street;
         private String city;

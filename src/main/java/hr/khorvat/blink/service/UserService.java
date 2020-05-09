@@ -10,4 +10,6 @@ public interface UserService {
     Page<BasicUserDTO> findAll(Pageable pageable);
 
     UserDTO findOne(Long id);
+
+    UserDTO save(UserDTO userDTO);
 }

@@ -37,9 +37,21 @@ public class User {
     @Column
     private String sex;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Address> addresses = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public User addAddress(Address address){
+        this.addresses.add(address);
+        address.setUser(this);
+        return this;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Contact> contacts = new HashSet<>();
+
+    public User addContact(Contact contact){
+        this.contacts.add(contact);
+        contact.setUser(this);
+        return this;
+    }
 }

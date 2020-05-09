@@ -1,8 +1,11 @@
 package hr.khorvat.blink.service.impl;
 
+import hr.khorvat.blink.model.Address;
+import hr.khorvat.blink.model.Contact;
 import hr.khorvat.blink.model.User;
 import hr.khorvat.blink.model.dto.BasicUserDTO;
 import hr.khorvat.blink.model.dto.UserDTO;
+import hr.khorvat.blink.model.mapper.UserMapper;
 import hr.khorvat.blink.repository.UserRepository;
 import hr.khorvat.blink.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -34,5 +38,14 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findOneWithEagerRelationsById(id).orElseThrow(() -> new IllegalStateException("User not found for Id"));
         UserDTO userDTO = new UserDTO(user);
         return userDTO;
+    }
+
+    @Override
+    @Transactional
+    public UserDTO save(UserDTO userDTO) {
+        User user = userMapper.toEntity(userDTO);
+        user = userRepository.saveAndFlush(user);
+
+        return new UserDTO(user);
     }
 }

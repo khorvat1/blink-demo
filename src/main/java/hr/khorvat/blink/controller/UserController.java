@@ -9,10 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -31,6 +31,12 @@ public class UserController {
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<UserDTO> findAll(@PathVariable Long id) {
         UserDTO user = userService.findOne(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> save(@RequestBody @Valid UserDTO userDTO) {
+        UserDTO user = userService.save(userDTO);
         return ResponseEntity.ok(user);
     }
 }
