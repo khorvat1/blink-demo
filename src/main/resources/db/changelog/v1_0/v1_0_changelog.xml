@@ -5,11 +5,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="20200507-01" author="kresimir">
+    <changeSet id="20200507-01" author="khorvat">
         <createSequence sequenceName="pk_sequence" schemaName="blink" startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="20200507-1" author="kresimir">
+    <changeSet id="20200507-1" author="khorvat">
         <createTable schemaName="blink" tableName="the_user">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -29,7 +29,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20200507-2" author="kresimir">
+    <changeSet id="20200507-2" author="khorvat">
         <createTable schemaName="blink" tableName="address">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -52,7 +52,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20200507-3" author="kresimir">
+    <changeSet id="20200507-3" author="khorvat">
         <createTable schemaName="blink" tableName="contact">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -69,7 +69,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20200507-4" author="kresimir">
+    <changeSet id="20200507-4" author="khorvat">
         <createTable schemaName="blink" tableName="title">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -83,7 +83,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20200507-5" author="kresimir">
+    <changeSet id="20200507-5" author="khorvat">
         <createTable schemaName="blink" tableName="title_copy">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -100,7 +100,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20200507-6" author="kresimir">
+    <changeSet id="20200507-6" author="khorvat">
         <createTable schemaName="blink" tableName="borrow">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -124,6 +124,68 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
+    </changeSet>
+    
+    <changeSet id="20200509-1" author="khorvat">
+        <addForeignKeyConstraint baseTableSchemaName="blink"
+                                 baseTableName="address"
+                                 baseColumnNames="user_id"
+                                 constraintName="address_user_fk"
+                                 referencedTableSchemaName="blink"
+                                 referencedTableName="the_user"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableSchemaName="blink"
+                                 baseTableName="contact"
+                                 baseColumnNames="user_id"
+                                 constraintName="contact_user_fk"
+                                 referencedTableSchemaName="blink"
+                                 referencedTableName="the_user"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableSchemaName="blink"
+                                 baseTableName="title_copy"
+                                 baseColumnNames="title_id"
+                                 constraintName="title_copy_title_fk"
+                                 referencedTableSchemaName="blink"
+                                 referencedTableName="title"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableSchemaName="blink"
+                                 baseTableName="borrow"
+                                 baseColumnNames="title_copy_id"
+                                 constraintName="borrow_title_copy_fk"
+                                 referencedTableSchemaName="blink"
+                                 referencedTableName="title_copy"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableSchemaName="blink"
+                                 baseTableName="borrow"
+                                 baseColumnNames="user_id"
+                                 constraintName="borrow_user_fk"
+                                 referencedTableSchemaName="blink"
+                                 referencedTableName="the_user"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableSchemaName="blink"
+                                 baseTableName="borrow"
+                                 baseColumnNames="extend_id"
+                                 constraintName="borrow_extend_fk"
+                                 referencedTableSchemaName="blink"
+                                 referencedTableName="borrow"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="20200509-2" author="khorvat">
+        <sql>
+            ALTER TABLE blink.the_user ADD CONSTRAINT sex_chk CHECK (sex IN ('M', 'F', 'O'));
+        </sql>
+        <sql>
+            ALTER TABLE blink.address ADD CONSTRAINT address_type_chk CHECK (type IN ('RESIDENCE', 'OTHER'));
+        </sql>
+        <sql>
+            ALTER TABLE blink.contact ADD CONSTRAINT contact_type_chk CHECK (type IN ('PHONE', 'MOBILE', 'EMAIL'));
+        </sql>
     </changeSet>
 
 
