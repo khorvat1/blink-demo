@@ -48,4 +48,10 @@ public class UserServiceImpl implements UserService {
 
         return new UserDTO(user);
     }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 }

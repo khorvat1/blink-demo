@@ -38,4 +38,16 @@ public class UserController {
         UserDTO user = userService.save(userDTO);
         return ResponseEntity.ok(user);
     }
+
+    @PutMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> update(@RequestBody @Valid UserDTO userDTO) {
+        UserDTO user = userService.save(userDTO);
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping(value = "/users/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
