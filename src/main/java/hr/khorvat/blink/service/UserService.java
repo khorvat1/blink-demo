@@ -1,12 +1,13 @@
 package hr.khorvat.blink.service;
 
-import hr.khorvat.blink.model.User;
-
-import java.util.List;
+import hr.khorvat.blink.model.dto.BasicUserDTO;
+import hr.khorvat.blink.model.dto.UserDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
-    User saveUser();
+    Page<BasicUserDTO> findAll(Pageable pageable);
 
-    List<User> findAll();
+    UserDTO findOne(Long id);
 }

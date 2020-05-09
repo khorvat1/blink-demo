@@ -16,6 +16,7 @@ import java.util.Set;
 public class User {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     @SequenceGenerator(name = "pk_sequence", sequenceName = "blink.pk_sequence", allocationSize = 1)
     private Long id;

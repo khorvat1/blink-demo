@@ -1,15 +1,18 @@
 package hr.khorvat.blink.service.impl;
 
 import hr.khorvat.blink.model.User;
+import hr.khorvat.blink.model.dto.BasicUserDTO;
+import hr.khorvat.blink.model.dto.UserDTO;
 import hr.khorvat.blink.repository.UserRepository;
 import hr.khorvat.blink.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -19,19 +22,17 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    @Transactional
-    public User saveUser(){
-        User u = new User();
-        u.setFirstName("pero");
-        u.setLastName("pero");
-        u.setDateOfBirth(new Date());
-        u.setSex("F");
-        return userRepository.saveAndFlush(u);
+    @Transactional(readOnly = true)
+    public Page<BasicUserDTO> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable).map(BasicUserDTO::new);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public UserDTO findOne(Long id) {
+        Objects.requireNonNull(id);
+        User user = userRepository.findOneWithEagerRelationsById(id).orElseThrow(() -> new IllegalStateException("User not found for Id"));
+        UserDTO userDTO = new UserDTO(user);
+        return userDTO;
     }
 }
