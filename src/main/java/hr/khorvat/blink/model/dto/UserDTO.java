@@ -1,11 +1,7 @@
 package hr.khorvat.blink.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import hr.khorvat.blink.model.Address;
-import hr.khorvat.blink.model.Contact;
 import hr.khorvat.blink.model.User;
-import hr.khorvat.blink.model.enums.AddressType;
-import hr.khorvat.blink.model.enums.ContactType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,39 +24,4 @@ public class UserDTO extends BasicUserDTO {
     private List<ContactDTO> contacts;
     private List<AddressDTO> addresses;
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class ContactDTO {
-        private Long id;
-        private String value;
-        private ContactType type;
-
-        public ContactDTO(Contact contact) {
-            super();
-            this.id = contact.getId();
-            this.value = contact.getValue();
-            this.type = contact.getType();
-        }
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class AddressDTO {
-        private Long id;
-        private String street;
-        private String city;
-        private String state;
-        private AddressType type;
-
-        public AddressDTO(Address address) {
-            super();
-            this.id = address.getId();
-            this.street = address.getStreet();
-            this.city = address.getCity();
-            this.state = address.getState();
-            this.type = address.getType();
-        }
-    }
 }

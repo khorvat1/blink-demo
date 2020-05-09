@@ -2,6 +2,7 @@ package hr.khorvat.blink.controller;
 
 import hr.khorvat.blink.model.dto.BasicUserDTO;
 import hr.khorvat.blink.model.dto.UserDTO;
+import hr.khorvat.blink.model.dto.UserDocumentDTO;
 import hr.khorvat.blink.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,5 +50,11 @@ public class UserController {
     public ResponseEntity<Void> update(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/users-auto", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> saveAutomatic(@RequestBody @Valid UserDocumentDTO userDocumentDTO) {
+        UserDTO user = userService.saveAutomaticEntry(userDocumentDTO);
+        return ResponseEntity.ok(user);
     }
 }

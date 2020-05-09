@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,14 +22,14 @@ public class Borrow {
 
     @NotNull
     @Column
-    private Date dateFrom;
+    private LocalDate dateFrom;
 
     @NotNull
     @Column
-    private Date dateTo;
+    private LocalDate dateTo;
 
     @Column
-    private Date dateReturned;
+    private LocalDate dateReturned;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

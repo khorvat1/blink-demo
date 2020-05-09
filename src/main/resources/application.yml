@@ -16,3 +16,7 @@ spring:
         generate_statistics: true
   hibernate:
     ddl-auto: validate
+
+logging.level.hr.khorvat.blink.external.BlinkFeignClient: DEBUG
+
+blink.rest.authorization: ZjdlNzkxMDFhYzFkNDIyN2I5MjQ2ZjdmYTIzMjRkNWE6MDRmMzNkOGUtNzY3NC00ZDEyLTlmOGQtZjEyNGUzZGI4MWUy

@@ -1,8 +1,8 @@
 package hr.khorvat.blink.service.impl;
 
+import hr.khorvat.blink.external.BlinkFeignClient;
 import hr.khorvat.blink.model.User;
-import hr.khorvat.blink.model.dto.BasicUserDTO;
-import hr.khorvat.blink.model.dto.UserDTO;
+import hr.khorvat.blink.model.dto.*;
 import hr.khorvat.blink.model.mapper.UserMapper;
 import hr.khorvat.blink.repository.UserRepository;
 import hr.khorvat.blink.service.UserService;
@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final BlinkFeignClient blinkFeignClient;
 
     @Override
     @Transactional(readOnly = true)
@@ -61,5 +64,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public UserDTO saveAutomaticEntry(UserDocumentDTO userDocumentDTO) {
+        BlinkRequestDTO blinkRequestDTO = new BlinkRequestDTO(userDocumentDTO.getImageURL(), userDocumentDTO.getImageBase64());
+        ResponseEntity<BlinkResponseDTO> response = blinkFeignClient.request(blinkRequestDTO);
+        if (response.getStatusCode() != HttpStatus.OK) {
+            throw new IllegalStateException("Exception in image processing");
+        }
+        BlinkResponseDTO userData = response.getBody();
+
+        User user = userMapper.toEntity(userData, userDocumentDTO);
+        user = userRepository.saveAndFlush(user);
+
+        return new UserDTO(user);
     }
 }
