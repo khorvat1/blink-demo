@@ -41,7 +41,7 @@ public class UserController {
 
     @PutMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> update(@RequestBody @Valid UserDTO userDTO) {
-        UserDTO user = userService.save(userDTO);
+        UserDTO user = userService.update(userDTO);
         return ResponseEntity.ok(user);
     }
 

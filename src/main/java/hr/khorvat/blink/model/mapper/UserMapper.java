@@ -37,4 +37,34 @@ public class UserMapper {
 
         return user;
     }
+
+    public User patchEntity(UserDTO userDTO, User user) {
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setDateOfBirth(userDTO.getDateOfBirth());
+        user.setSex(userDTO.getSex());
+
+        user.getAddresses().clear();
+        user.getContacts().clear();
+
+        userDTO.getAddresses().forEach(a -> {
+            Address address = new Address();
+            address.setId(a.getId());
+            address.setStreet(a.getStreet());
+            address.setCity(a.getCity());
+            address.setState(a.getState());
+            address.setType(a.getType());
+            user.addAddress(address);
+        });
+
+        userDTO.getContacts().forEach(c -> {
+            Contact contact = new Contact();
+            contact.setId(c.getId());
+            contact.setValue(c.getValue());
+            contact.setType(c.getType());
+            user.addContact(contact);
+        });
+
+        return user;
+    }
 }

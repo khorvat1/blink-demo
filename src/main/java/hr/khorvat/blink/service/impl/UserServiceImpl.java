@@ -1,7 +1,5 @@
 package hr.khorvat.blink.service.impl;
 
-import hr.khorvat.blink.model.Address;
-import hr.khorvat.blink.model.Contact;
 import hr.khorvat.blink.model.User;
 import hr.khorvat.blink.model.dto.BasicUserDTO;
 import hr.khorvat.blink.model.dto.UserDTO;
@@ -44,6 +42,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDTO save(UserDTO userDTO) {
         User user = userMapper.toEntity(userDTO);
+        user = userRepository.saveAndFlush(user);
+
+        return new UserDTO(user);
+    }
+
+    @Override
+    @Transactional
+    public UserDTO update(UserDTO userDTO) {
+        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new IllegalStateException("User not found for Id"));
+        user = userMapper.patchEntity(userDTO, user);
         user = userRepository.saveAndFlush(user);
 
         return new UserDTO(user);
