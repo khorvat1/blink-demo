@@ -27,10 +27,14 @@ public class MRZType1ValidatorTest {
 
         MRZValidationDTO result2 = mrzType1Validator
                 .validateMRZFields("IOHRV0000000000<<<<<<<<<<<<<<<\n7701018M0212126HRV<<<<<<<<<<<0\nCDECIMEM<<EDECIMEM<<<<<<<<<<<<\n");
-        Assertions.assertEquals(true, result1.getIsValid());
+        Assertions.assertEquals(true, result2.getIsValid());
 
         MRZValidationDTO result3 = mrzType1Validator
                 .validateMRZFields("IOHRV0000000000<<<<<<<<<<<<<<<\n7701018F0212127HRV<<<<<<<<<<<0\nCDECIMEM<<EDECIMEM<<<<<<<<<<<<\n");
-        Assertions.assertEquals(false, result1.getIsValid());
+        Assertions.assertEquals(false, result3.getIsValid());
+
+        MRZValidationDTO result4 = mrzType1Validator
+                .validateMRZFields("IOHRV123456789701234567896<<<<\n7701018M2307013HRV<<<<<<<<<<<1\nUZORAK<<SPECIMEN<<<<<<<<<<<<<<\n");
+        Assertions.assertEquals(true, result4.getIsValid());
     }
 }
