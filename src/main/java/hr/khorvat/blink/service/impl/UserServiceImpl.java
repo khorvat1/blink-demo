@@ -5,7 +5,9 @@ import hr.khorvat.blink.model.User;
 import hr.khorvat.blink.model.dto.*;
 import hr.khorvat.blink.model.mapper.UserMapper;
 import hr.khorvat.blink.repository.UserRepository;
+import hr.khorvat.blink.service.MRZType1Validator;
 import hr.khorvat.blink.service.UserService;
+import hr.khorvat.blink.util.CheckDigitsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final BlinkFeignClient blinkFeignClient;
+    private final MRZType1Validator mrzType1Validator;
 
     @Override
     @Transactional(readOnly = true)
@@ -75,6 +78,8 @@ public class UserServiceImpl implements UserService {
             throw new IllegalStateException("Exception in image processing");
         }
         BlinkResponseDTO userData = response.getBody();
+
+        mrzType1Validator.validateMRZFields(userData.getData().getResult().getRawMRZString());
 
         User user = userMapper.toEntity(userData, userDocumentDTO);
         user = userRepository.saveAndFlush(user);
