@@ -1,5 +1,6 @@
 package hr.khorvat.blink;
 
+import hr.khorvat.blink.model.dto.MRZValidationDTO;
 import hr.khorvat.blink.service.MRZType1Validator;
 import hr.khorvat.blink.service.impl.MRZType1ValidatorImpl;
 import hr.khorvat.blink.util.CheckDigitsUtil;
@@ -20,6 +21,16 @@ public class MRZType1ValidatorTest {
 
     @Test
     void testValidateMRZFields(){
-        mrzType1Validator.validateMRZFields("IOHRV0000000000<<<<<<<<<<<<<<<\n7701018F0212126HRV<<<<<<<<<<<0\nCDECIMEM<<EDECIMEM<<<<<<<<<<<<\n");
+        MRZValidationDTO result1 = mrzType1Validator
+                .validateMRZFields("IOHRV0000000000<<<<<<<<<<<<<<<\n7701018F0212126HRV<<<<<<<<<<<0\nCDECIMEM<<EDECIMEM<<<<<<<<<<<<\n");
+        Assertions.assertEquals(true, result1.getIsValid());
+
+        MRZValidationDTO result2 = mrzType1Validator
+                .validateMRZFields("IOHRV0000000000<<<<<<<<<<<<<<<\n7701018M0212126HRV<<<<<<<<<<<0\nCDECIMEM<<EDECIMEM<<<<<<<<<<<<\n");
+        Assertions.assertEquals(true, result1.getIsValid());
+
+        MRZValidationDTO result3 = mrzType1Validator
+                .validateMRZFields("IOHRV0000000000<<<<<<<<<<<<<<<\n7701018F0212127HRV<<<<<<<<<<<0\nCDECIMEM<<EDECIMEM<<<<<<<<<<<<\n");
+        Assertions.assertEquals(false, result1.getIsValid());
     }
 }

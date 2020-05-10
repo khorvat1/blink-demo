@@ -7,7 +7,6 @@ import hr.khorvat.blink.model.mapper.UserMapper;
 import hr.khorvat.blink.repository.UserRepository;
 import hr.khorvat.blink.service.MRZType1Validator;
 import hr.khorvat.blink.service.UserService;
-import hr.khorvat.blink.util.CheckDigitsUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
