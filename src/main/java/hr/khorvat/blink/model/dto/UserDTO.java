@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +24,14 @@ public class UserDTO extends BasicUserDTO {
         this.contacts = user.getContacts().stream().map(ContactDTO::new).collect(Collectors.toList());
     }
 
+    @NotNull
+    @Size(min = 1)
+    @Valid
     private List<ContactDTO> contacts;
+
+    @NotNull
+    @Size(min = 1)
+    @Valid
     private List<AddressDTO> addresses;
 
 }

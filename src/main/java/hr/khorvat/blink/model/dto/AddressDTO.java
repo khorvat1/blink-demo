@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -16,9 +17,12 @@ import java.io.Serializable;
 public class AddressDTO implements Serializable {
 
     private Long id;
+    @NotNull
     private String street;
+    @NotNull
     private String city;
     private String state;
+    @NotNull
     private AddressType type;
 
     public AddressDTO(Address address) {

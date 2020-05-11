@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,8 +31,10 @@ public class BasicUserDTO implements Serializable {
 
     private Long id;
     @NotNull
+    @NotBlank
     private String firstName;
     @NotNull
+    @NotBlank
     private String lastName;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

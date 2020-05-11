@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -16,7 +17,9 @@ import java.io.Serializable;
 public class ContactDTO implements Serializable {
 
     private Long id;
+    @NotNull
     private String value;
+    @NotNull
     private ContactType type;
 
     public ContactDTO(Contact contact) {
