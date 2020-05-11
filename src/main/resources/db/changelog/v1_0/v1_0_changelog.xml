@@ -188,5 +188,55 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200511-1" author="khorvat">
+        <createTable schemaName="blink" tableName="mrz_validation">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth_check_digit" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_date_of_birth_valid" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_expiry" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_expiry_check_digit" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_date_of_expiry_valid" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="document_number" type="varchar(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="document_number_check_digit" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_document_number_valid" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="composite_check_string" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="composite_check_digit" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_valid" type="tinyint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="object_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>

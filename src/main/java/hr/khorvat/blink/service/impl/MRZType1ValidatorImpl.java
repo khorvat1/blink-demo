@@ -33,7 +33,7 @@ public class MRZType1ValidatorImpl implements MRZType1Validator {
         String dateOfExpiry = mrzStrings[1].substring(8, 14);
         Integer dateOfExpiryControl = Integer.valueOf(mrzStrings[1].substring(14, 15));
         builder.dateOfExpiry(dateOfExpiry);
-        builder.dateOfBirthCheckDigit(dateOfExpiryControl);
+        builder.dateOfExpiryCheckDigit(dateOfExpiryControl);
         builder.isDateOfExpiryValid(checkDigitsUtil.isMRZStringValid(documentNumber, documentNumberControl));
 
         String compositeDigitCheck = new StringBuilder()
