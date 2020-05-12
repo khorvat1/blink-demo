@@ -19,4 +19,4 @@ spring:
 
 logging.level.hr.khorvat.blink.external.BlinkFeignClient: DEBUG
 
-blink.rest.authorization: ZjdlNzkxMDFhYzFkNDIyN2I5MjQ2ZjdmYTIzMjRkNWE6MDRmMzNkOGUtNzY3NC00ZDEyLTlmOGQtZjEyNGUzZGI4MWUy
+blink.rest.authorization: replaceMeWithBase64Token
