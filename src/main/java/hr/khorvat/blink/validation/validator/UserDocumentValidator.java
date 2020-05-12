@@ -18,7 +18,8 @@ public class UserDocumentValidator implements ConstraintValidator<ValidUserDocum
             return false;
         }
 
-        if (userDocumentDTO.getImageURL().length() > 10 || userDocumentDTO.getImageBase64().length() > 100){
+        if ((userDocumentDTO.getImageURL() != null && userDocumentDTO.getImageURL().length() > 10 )
+                || (userDocumentDTO.getImageBase64() != null && userDocumentDTO.getImageBase64().length() > 100)){
             return true;
         }
 
